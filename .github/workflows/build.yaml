@@ -7,8 +7,8 @@ on:
       - main
 
 jobs:
-  build-plugin:
-    name: Building plugin
+  pre-release:
+    name: Pre-release
     runs-on: ubuntu-latest
 
     steps:
@@ -22,5 +22,11 @@ jobs:
       - name: Run the Maven verify phase
         run: mvn --batch-mode --update-snapshots verify
 
-      - name: LS
-        run: ls -la nexus-pac4j-plugin/target
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            LICENSE
+            *.jar
