@@ -22,11 +22,10 @@ jobs:
       - name: Run the Maven verify phase
         run: mvn --batch-mode --update-snapshots verify
 
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - name: Release
+        uses: softprops/action-gh-release@v2
         with:
-          automatic_release_tag: "latest"
-          prerelease: true
-          title: "Development Build"
+          name: Release ${{ github.sha }}
           files: |
             LICENSE
-            *.jar
+            nexus-pac4j-plugin/target/*.jar
